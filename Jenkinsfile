@@ -101,12 +101,6 @@ pipeline {
                 sh "docker rmi $registry:V$BUILD_NUMBER"
             }
         }
-
-        stage('remove Unused docker Image') {
-            steps {
-                sh "docker rmi $registry:V$BUILD_NUMBER"
-            }
-        }
         
         stage('k8s deploy') {
             agent {label 'master'}
