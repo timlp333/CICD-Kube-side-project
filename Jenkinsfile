@@ -111,7 +111,7 @@ pipeline {
         stage('k8s deploy') {
             agent {label 'master'}
                 steps {
-                    sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --n prod"
+                    sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --n test"
                 }
         }
     }
