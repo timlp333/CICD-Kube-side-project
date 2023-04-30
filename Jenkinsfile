@@ -1,6 +1,8 @@
 pipeline {
 
-    agent any
+    agent {
+        label 'respberrypi'
+    }
 /*
 	tools {
         maven "maven3"
