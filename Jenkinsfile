@@ -105,7 +105,6 @@ pipeline {
         }
         
         stage('k8s deploy') {
-            agent {label 'master'}
                 steps {
                     sh "helm --kubeconfig /etc/rancher/k3s/k3s.yaml upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --n test"
                 }
