@@ -30,28 +30,28 @@ pipeline {
             }
         }
 
-        // stage('UNIT TEST'){
-        //     steps {
-        //         sh 'mvn test'
-        //     }
-        // }
+        stage('UNIT TEST'){
+            steps {
+                sh 'mvn test'
+            }
+        }
 
-        // stage('INTEGRATION TEST'){
-        //     steps {
-        //         sh 'mvn verify -DskipUnitTests'
-        //     }
-        // }
+        stage('INTEGRATION TEST'){
+            steps {
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
 
-        // stage ('CODE ANALYSIS WITH CHECKSTYLE'){
-        //     steps {
-        //         sh 'mvn checkstyle:checkstyle'
-        //     }
-        //     post {
-        //         success {
-        //             echo 'Generated Analysis Result'
-        //         }
-        //     }
-        // }
+        stage ('CODE ANALYSIS WITH CHECKSTYLE'){
+            steps {
+                sh 'mvn checkstyle:checkstyle'
+            }
+            post {
+                success {
+                    echo 'Generated Analysis Result'
+                }
+            }
+        }
 
         stage('CODE ANALYSIS with SONARQUBE') {
 
@@ -105,7 +105,7 @@ pipeline {
         stage('k8s deploy') {
             agent {label 'master'}
                 steps {
-                    sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --n test"
+                    sh "helm --kubeconfig /etc/rancher/k3s/k3s.yaml upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=${registry}:V${BUILD_NUMBER} --n test"
                 }
         }
     }
